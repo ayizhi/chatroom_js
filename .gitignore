@@ -1,0 +1,14 @@
+# Created by .ignore support plugin (hsz.mobi)
+.bowerrc
+.idea/.name
+.idea/chatroom_js.iml
+.idea/copyright/
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+bower.json
+node_modules/angular/
+node_modules/bootstrap/
+node_modules/jquery/
+static/components/

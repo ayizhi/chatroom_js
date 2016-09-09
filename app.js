@@ -28,5 +28,5 @@ var server = app.listen(port,function(){
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection',function(socket){
-	socket.emit('connected')
+	socket.emit('connec1ted')
 })
