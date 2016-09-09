@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+	2222
+<script type="text/javascript">
+	var socket = io.connect('/');
+	socket.on('connected',function(){
+		console.log(2222)
+		alert('connected to chatroom')
+	})
+
+
+</script>	
+
+	
+</body>
+</html>
