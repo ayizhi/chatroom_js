@@ -26,7 +26,15 @@ var server = app.listen(port,function(){
 	console.log('chatroom is on port ' + port );
 })
 var io = require('socket.io').listen(server);
+var messages = [];
 
 io.sockets.on('connection',function(socket){
-	socket.emit('connec1ted')
+	socket.on('getAllMessages',function(){
+		socket.emit('allMessages',messages)
+	})
+	socket.on('createMessage',function(message){
+		messages.push(message);
+		io.sockets.emit('messageAdded',message);
+	})
+
 })
