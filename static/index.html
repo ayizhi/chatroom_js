@@ -20,7 +20,8 @@
 			<div class="panel panel-default room" ng-controller="RoomCtrl">
 				<div class="panel-heading room-header">chatroom</div>
 				<div class="panel-body room-content">
-					<div class="list-group messages" np-repeat="message in messages">
+					<div class="list-group messages" auto-scroll-to-bottom>
+						<div class="list-group-item message" ng-repeat="message in messages"></div>
 						啦啦啦：{{message}}
 					</div>
 					<form class="messages-creator" ng-controller="MessageCreatorCtrl">

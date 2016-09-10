@@ -46,3 +46,21 @@ angular.module('chatroomApp').controller('MessageCreatorCtrl',function($scope,so
     $scope.newMessage = ''
   }
 })
+
+angular.module('chatroomApp').directive('autoScrollToBottom',function(){
+  return{
+    link: function(scope,element,attrs){
+      scope.$watch(
+        function(){
+          return element.children().length;
+        },
+        function(){
+          element.animate({
+            scrollTop: element.prop('scrollHeight')
+          },1000);
+        }
+      )
+    }
+  }
+})
+
