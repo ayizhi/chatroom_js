@@ -32,13 +32,14 @@ angular.module('chatroomApp').controller('RoomCtrl',function($scope,socket){
     $scope.messages = messages;
   })
   socket.on('messageAdded',function(message){
-    $scope.message.push(message);
+    $scope.messages.push(message);
   })
 })
 
 angular.module('chatroomApp').controller('MessageCreatorCtrl',function($scope,socket){
   $scope.newMessage = ''
   $scope.createMessage = function () {
+    console.log('$scope.newMessage:',$scope.newMessage,'=====')
     if($scope.newMessage == ''){
       return
     }
@@ -64,3 +65,27 @@ angular.module('chatroomApp').directive('autoScrollToBottom',function(){
   }
 })
 
+angular.module('chatroomApp').directive('ctrlEnterBreakLine',function () {
+  return function (scope,element,attrs) {
+    var ctrlDown = false;
+    element.bind('keydown',function(evt){
+      if(evt.which == 17){
+        ctrlDown = true;
+        setTimeout(function(){
+          ctrlDown = false
+        },1000)
+      }
+      if(evt.which === 13){
+        if(ctrlDown){
+          element.val(element.val() + '\n')
+          console.log(element.val(),'element.val()')
+        }else{
+          scope.$apply(function(){
+            scope.$eval(attrs.ctrlEnterBreakLine)
+          });
+          evt.preventDefault()
+        }
+      }
+    })
+  }
+})
