@@ -34,6 +34,19 @@ angular.module('chatroomApp',['ngRouter']).run(function($window,$rootScope,$http
     $location.path('/')
   }).error(function(data){
     $location.path('/login')
+  });
+
+  $rootScope.logout = function(){
+      $http({
+          url: '/ajax/logout',
+          method: 'Get',
+      }).success(function(){
+          $rootScope.me = null;
+          $location.path('/login');
+      })
+  }
+  $rootScope.$on('login',function(evt,me){
+      $rootScope.me = me;
   })
 })
 

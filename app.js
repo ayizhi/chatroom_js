@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var process = require('process');
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 3000;
 //process对象提供一系列属性，用于返回系统信息。
 // process.pid：当前进程的进程号。
 // process.version：Node的版本，比如v0.10.18。
@@ -15,9 +15,25 @@ var port = process.env.PORT || 3000
 // process.stdin：指向标准输入。
 // process.stderr：指向标准错误。
 
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var Controller = require('./controllers');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}))
+app.use(cookieParser());
+app.use(session({
+	secret:'chatroom',
+	resave: true,
+	saveUninitialized: false,
+	cookie: {
+		maxAge: 60*1000,
+	}
+}))
 app.use(express.static(path.join(__dirname,'/static')))
-
 app.use(function(req,res){
 	res.sendFile(path.join(__dirname,'./static/index.html'))
 })
@@ -39,3 +55,43 @@ io.sockets.on('connection',function(socket){
 
 })
 
+
+app.get('/api/validate',function(req,res){
+	var _userId = req.session._userId;
+	if(_userId){
+		Controller.User.findUserById(_userId,function(err,user){
+			if(err){
+				res.json(401,{
+					msg: err
+				})
+			}else {
+				res.json(user);
+			}
+		})
+	}else{
+		res.json(401,null);
+	}
+})
+
+app.post('/api/login',function (req,res) {
+	var email = req.body.email;
+	if(email){
+		Controller.User.findByEmailOrCreate(email,function(err,user){
+			if(err){
+				res.json(500,{
+					msg: err
+				})
+			}else{
+				req.session._userId = user._id;
+				res.json(user);
+			}
+		})
+	}else{
+		res.json(403)
+	}
+})
+
+app.get('/api/logout',function(req,res){
+	req.session._userId = null;
+	res.json(401);
+})
