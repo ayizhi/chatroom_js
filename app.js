@@ -19,7 +19,18 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var Controller = require('./controllers');
+var signedCookieParser = cookieParser('technode');
+var MongoStore = require('connect-mongo')(session);
 
+var sessionStore = new MongoStore({
+	url: 'mongodb://localhost:27017/chatroom'
+
+})
+
+
+
+
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -30,8 +41,9 @@ app.use(session({
 	resave: true,
 	saveUninitialized: false,
 	cookie: {
-		maxAge: 60*1000,
-	}
+		maxAge: 60*1000*60,
+	},
+	store: sessionStore
 }))
 app.use(express.static(path.join(__dirname,'/static')))
 app.use(function(req,res){
@@ -42,6 +54,28 @@ var server = app.listen(port,function(){
 	console.log('chatroom is on port ' + port );
 })
 var io = require('socket.io').listen(server);
+io.set('authorization',function(handshakeData,accept){
+	signedCookieParser(handshakeData,{},function (err) {
+		if(err){
+			accept(err,false)
+		}else{
+			sessionStore.get(handshakeData.signedCookies['connect.sid'],function(err,session){
+				if(err){
+					accept(err.message,false);
+				}else{
+					handshakeData.session = session;
+					if(session._userId){
+						accept(null,true);
+					}else{
+						accept('No login')
+					}
+				}
+			})
+		}
+	})
+})
+
+
 var messages = [];
 
 io.sockets.on('connection',function(socket){
