@@ -1,6 +1,5 @@
 angular.module('chatroomApp', ['ngRoute']);
 
-
 angular.module('chatroomApp').factory('socket',function($rootScope){
 	var socket = io.connect('/');
 	return {
@@ -25,11 +24,13 @@ angular.module('chatroomApp').factory('socket',function($rootScope){
 	}
 })
 
-angular.module('chatroomApp',['ngRouter']).run(function($window,$rootScope,$http,$location){
+angular.module('chatroomApp').run(function($window,$rootScope,$http,$location){
+    console.log('api/validate')
   $http({
     url: '/api/validate',
     method: 'Get',
   }).success(function(user){
+    console.log(user)
     $rootScope.me = user;
     $location.path('/')
   }).error(function(data){

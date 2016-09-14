@@ -8,3 +8,5 @@ angular.module('chatroomApp').controller('RoomCtrl',function($scope,socket){
         $scope.messages.push(message);
     })
 })
+
+

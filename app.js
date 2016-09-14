@@ -24,7 +24,6 @@ var MongoStore = require('connect-mongo')(session);
 
 var sessionStore = new MongoStore({
 	url: 'mongodb://localhost:27017/chatroom'
-
 })
 
 
@@ -45,7 +44,7 @@ app.use(session({
 	},
 	store: sessionStore
 }))
-app.use(express.static(path.join(__dirname,'/static')))
+app.use(express.static(path.join(__dirname,'./static')))
 app.use(function(req,res){
 	res.sendFile(path.join(__dirname,'./static/index.html'))
 })
@@ -91,6 +90,7 @@ io.sockets.on('connection',function(socket){
 
 
 app.get('/api/validate',function(req,res){
+	console.log('=====')
 	var _userId = req.session._userId;
 	if(_userId){
 		Controller.User.findUserById(_userId,function(err,user){
@@ -100,6 +100,7 @@ app.get('/api/validate',function(req,res){
 				})
 			}else {
 				res.json(user);
+				console.log(user)
 			}
 		})
 	}else{

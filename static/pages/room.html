@@ -1,11 +1,12 @@
 <div class="col-md-12">
-    <div class="panel panel-default room" ng-controller="RoomCtrl">
+    <div class="panel panel-default room" >
         <div class="panel-heading room-header">chatroom</div>
         <div class="panel-body room-content">
             <div class="list-group messages" auto-scroll-to-bottom>
                 <div class="list-group-item message" ng-repeat="message in messages">
-                    <img ng-src="{{message.creator.avatarUrl}}" title="{{message.creator.name}}" class="img-rounded" src="" alt=""/>
+                <img ng-src="{{message.creator.avatarUrl}}" title="{{message.creator.name}}" class="img-rounded" src="" alt=""/>
                     {{message.creator.name}} : {{message.message}}
+
                 </div>
             </div>
             <form class="messages-creator" ng-controller="MessageCreatorCtrl">
