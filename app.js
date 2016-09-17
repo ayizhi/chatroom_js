@@ -87,7 +87,10 @@ io.sockets.on('connection',function(socket){
 		io.sockets.emit('messageAdded',message);
 	})
 	socket.on('login',function(user){
-		console.log(user);
+		console.log(user,'123101234010234123');
+	})
+	socket.on('user',function(user){
+		console.log('123123 ===' ,user)
 	})
 
 })
@@ -113,8 +116,8 @@ app.get('/api/validate',function(req,res){
 })
 
 app.post('/api/login',function (req,res) {
-	console.log('login===a==qw=e=qew=qwe',req,res);
 	var email = req.body.email;
+	console.log(email,1123123);
 	if(email){
 		Controller.User.findByEmailOrCreate(email,function(err,user){
 			if(err){

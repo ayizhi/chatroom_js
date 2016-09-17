@@ -1,9 +1,11 @@
+
+
 angular.module('chatroomApp',['ngRoute']).config(function ($routeProvider,$locationProvider) {
     $locationProvider.html5Mode(true);
-    $locationProvider.html5Mode({
-        enabled: true,
-        // requireBase: false
-    });
+    // $locationProvider.html5Mode({
+    //     enabled: true,
+    //     // requireBase: false
+    // });
     $routeProvider.when('/',{
         templateUrl: '/pages/room.html',
         controller: 'RoomCtrl'

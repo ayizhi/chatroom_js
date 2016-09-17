@@ -1,17 +1,16 @@
 angular.module('chatroomApp').controller('LoginCtrl',function ($scope,$http,$location) {
+    console.log('======')
     $scope.login = function(){
-        console.log(123123123123123123)
-        console.log($scope);
-        console.log($scope.email);
         var email = $scope.email;
+        console.log(email)
         $http({
             url: '/api/login',
-            method: 'POST',
+            method: 'post',
             data:{
                 email: email
             }
         }).success(function (user) {
-            console.log('login',user)
+            // console.log('login',user)
             $scope.$emit('login',user);
             $location.path('/');
         }).error(function (data) {

@@ -47,6 +47,7 @@ angular.module('chatroomApp').run(function($window,$rootScope,$http,$location){
       })
   }
   $rootScope.$on('login',function(evt,me){
+    console.log(me,'login =======')
       $rootScope.me = me;
   })
 })
