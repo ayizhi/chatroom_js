@@ -54,6 +54,7 @@ var server = app.listen(port,function(){
 })
 var io = require('socket.io').listen(server);
 io.set('authorization',function(handshakeData,accept){
+	console.log('handshakeData,accept',handshakeData,accept)
 	signedCookieParser(handshakeData,{},function (err) {
 		if(err){
 			accept(err,false)
@@ -85,6 +86,9 @@ io.sockets.on('connection',function(socket){
 		messages.push(message);
 		io.sockets.emit('messageAdded',message);
 	})
+	socket.on('login',function(user){
+		console.log(user);
+	})
 
 })
 
@@ -109,6 +113,7 @@ app.get('/api/validate',function(req,res){
 })
 
 app.post('/api/login',function (req,res) {
+	console.log('login===a==qw=e=qew=qwe',req,res);
 	var email = req.body.email;
 	if(email){
 		Controller.User.findByEmailOrCreate(email,function(err,user){
