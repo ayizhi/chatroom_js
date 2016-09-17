@@ -3,13 +3,13 @@
         <div class="panel-heading room-header">chatroom</div>
         <div class="panel-body room-content">
             <div class="list-group messages" auto-scroll-to-bottom>
-                <div class="list-group-item message" ng-repeat="message in messages">
-                <img ng-src="{{message.creator.avatarUrl}}" title="{{message.creator.name}}" class="img-rounded" src="" alt=""/>
-                    {{message.creator.name}} : {{message.message}}
-
-                </div>
-            </div>
-            <form class="messages-creator" ng-controller="MessageCreatorCtrl">
+                <!--<div class="list-group-item message" ng-repeat="message in messages">-->
+                <!--<img ng-src="{{message.creator.avatarUrl}}" title="{{message.creator.name}}" class="img-rounded" src="" alt=""/>-->
+                    <!--{{message.creator.name}} : {{message.message}}-->
+<!---->
+                <!--</div>-->
+            <!--</div>-->
+            <form class="messages-creator">
                 <div class="form-group">
                     <textarea required class="form-control message-input" ng-model="newMessage" ctrl-enter-break-line="createMessage()" name="" id="" cols="30" rows="10" placeholder="ctrl+enter to quick send"></textarea>
                 </div>

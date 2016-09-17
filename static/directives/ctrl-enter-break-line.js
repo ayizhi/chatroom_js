@@ -1,6 +1,7 @@
 
 angular.module('chatroomApp').directive('ctrlEnterBreakLine',function () {
     return function (scope,element,attrs) {
+        console.log(123123123)
         var ctrlDown = false;
         element.bind('keydown',function(evt){
             if(evt.which == 17){

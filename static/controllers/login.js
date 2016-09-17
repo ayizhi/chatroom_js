@@ -3,6 +3,7 @@ angular.module('chatroomApp').controller('LoginCtrl',function ($scope,$http,$loc
     $scope.login = function(){
         var email = $scope.email;
         console.log(email)
+        console.log('loginCtrl === login ')
         $http({
             url: '/api/login',
             method: 'post',
